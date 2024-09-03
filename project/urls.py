@@ -1,5 +1,5 @@
 """
-URL configuration for projeto project.
+URL configuration for project project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.0/topics/http/urls/
@@ -17,11 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from django.http import HttpResponse
+# Importando de dentro de recipes as pastas static e settings
+from django.conf.urls.static import static
+from django.conf import settings
 
 
-
-urlpatterns = [
+urlpatterns =[
     path('admin/', admin.site.urls),
     path('', include('recipes.urls'))
-
 ]
+
+# Aqui está sendo utilizado o valores de settings do project
+urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

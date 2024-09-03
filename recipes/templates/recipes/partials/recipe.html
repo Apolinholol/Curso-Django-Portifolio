@@ -1,0 +1,101 @@
+<div class="recipe recipe-list-item">
+
+    {% comment %} if para verificar se existe uma imagem para o cover sem quebrar o site {% endcomment %}
+{% if recipe.cover %}
+    <div class="recipes-cover">
+        <a href="{% url 'recipes:recipe' recipe.id %}">
+            <img src="{{recipe.cover.url}}" alt="Temporário">
+        </a>
+    </div>
+{% endif %}
+
+    <div class="recipe-title-container">
+            <!-- está pegando a chave do dicionario 'recipe' em 'views.py' que por sua vez importa de 'factory.py' da pasta utils a biblioteca faker -->
+            <h2 class="recipe-title">
+                <!-- link que redireciona para entrar na recipe, através da nomenclatura em url.py e a lib faker disponibilizando o id como chave -->
+                <a href="{% url 'recipes:recipe' recipe.id %}">
+                    {{recipe.title}}
+                </a>
+            </h2>
+        </div>
+
+        <div class="recipe-author">
+
+        {% if  recipe.author is not None %}
+            <span class="recipe-author-item">
+                <i class="fas fa-user"></i>
+                    {% comment %} Faz com que exista sempre um nome de quem criou a receita, seja pelo proprio nome de usuario ou não {% endcomment %}
+                    {% if recipe.author.first_name %}
+                    <!-- está pegando a chave do dicionario 'recipe' em 'views.py' que por sua vez importa de 'factory.py' da pasta utils a biblioteca faker -->
+                            {{recipe.author.first_name}} {{ recipe.author.last_name }}
+                    {% else %}
+                            {{recipe.author.username}}
+                    {% endif %}
+            </span>
+        {% endif %}
+            {% comment %} Fazendo um usuario via shell: from django.contrib.auth.models import User
+            >>> User.objects.create_user(first_name='Thermuth',last_name='Lopes',username='Thermuth'
+            ,email='thermuth@hotmail.com', password='123456') {% endcomment %}
+           
+
+            <span class="recipe-author-item">
+                <i class="fas fa-calendar-alt"></i>
+                {{recipe.created_at|date:"d/m/Y"}} às {{recipe.created_at|date:"H:i:s"}}
+            </span>
+
+            {% if recipe.category is not None %}
+            <span class="recipe-author-item">
+                {% comment %} recipes:category vem de models.py que vai fazer com que eu veja apenas o conteúdo especifico da categoria definido por id {% endcomment %}
+                {% comment %} esse recipe.category.id é o path para encontrar os links corretos  {% endcomment %}
+                <a href="{% url 'recipes:category' recipe.category.id %}">
+                    <i class="fas fa-layer-group"></i>
+                    {% comment %} Irá exibir o nome da categoria {% endcomment %}
+                    <span>{{ recipe.category.name }}</span>
+                </a>
+            </span>
+        {% endif %}
+   </div>
+
+        {% if not is_detail_page %} <!-- Fazendo isso para sumir a descrição quando clicar para ir em outra pagina-->
+        <div class="recipe-content">
+            <p>{{ recipe.description }}</p>
+        </div>
+        {% endif %}
+
+        <div class="recipe-meta-container">
+            <div class="recipe-meta recipe-preparation">
+                <h3 class="recipe-meta-title"><i class="fas fa-stopwatch"></i> Preparo</h3>
+                <div class="recipe-meta-text">
+                    {{recipe.preparation_time }} {{recipe.preparation_time_unit}}
+                </div>
+            </div>
+
+            <div class="recipe-meta recipe-servings">
+                <h3 class="recipe-meta-title"><i class="fas fa-pizza-slice"></i> Porções</h3>
+                <div class="recipe-meta-text">
+                    {{recipe.servings }} {{recipe.preparation_servings_unit }}
+                </div>
+            </div>  
+        </div>
+
+        <!-- funcionalidade para retirar o botão do footer apos escolher a receita -->
+        {% if not is_detail_page %}
+        <footer class="recipe-footer">
+            <a class="recipe-read-more button button-dark button-full-width" href="{% url 'recipes:recipe' recipe.id %}">
+                <i class="fas fa-eye"></i>
+                <span>ver mais...</span>
+            </a>
+        </footer>
+        {% endif %}
+
+        {% if is_detail_page is True %}
+            <div class="preparation-steps" id="preparation-steps"> <!-- funcionalidade para dividir o texto através de pipe -->
+                {% if recipe.preparation_steps_is_html is True %}
+                        {{recipe.preparation_steps |safe}} <!-- safe indica pro django que caso tenha html, o usuario pode coloca-lo-->
+                {% else %}
+                        {{recipe.preparation_steps |linebreaksbr}}
+                {% endif %}
+                </div>
+        {% endif %}
+    </div>
+    

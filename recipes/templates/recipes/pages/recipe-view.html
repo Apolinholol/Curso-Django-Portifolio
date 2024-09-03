@@ -1,0 +1,14 @@
+{% extends 'global/base.html' %}
+
+<!-- Para carregar o titulo que está em 'base' e poder troca-lo-->
+                {% comment %} Recipe.title referente a models.py {% endcomment %}
+{% block title %} {{recipe.title}} | {% endblock title %}
+
+<!-- informação que será carregada dentro da 'home' e 'base'-->
+{% block content %}
+<div class="main-content main-content-detail container">
+    {% include 'recipes/partials/recipe.html' %}
+</div>
+{% endblock content %}
+
+

@@ -1,0 +1,20 @@
+{% extends 'global/base.html' %}
+
+<!-- refente a head -->
+{% block title %} Home |{% endblock title %}
+
+{% block content %}
+<div class="main-content main-content-list container">
+    <!-- multiplicado as receitas na home através das funções em 'views.py' 
+     que foram transformadas em dicionario de listas-->
+    {% for recipe in recipes  %}
+        {% include 'recipes/partials/recipe.html' %}
+        {% empty %}
+            <div class="center m-y">
+                <h1> No recipes found here 😥</h1>
+            </div>
+    {% endfor %}
+    
+</div>
+{% endblock content %}
+       

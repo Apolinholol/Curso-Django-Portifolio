@@ -1,0 +1,14 @@
+ <!-- Container principal para ocupar toda a largura da pagina// container externo-->
+<header class="main-header-container">
+    <!--Container interno para fixar largura--> <!-- foi adicionado o 'container' em div para que as operaçoes sejam homogêneas dentro do container principal -->
+      <div class="main-header container">
+          <h1>
+              <!-- Link que aponta para a home -->
+              <a class="main-logo" href="{% url 'recipes:home' %}"> 
+                  <!-- 'i de icon'-->
+                  <i class="fas fa-utensils main-logo-icon"></i> 
+                  <span class="main-logo-text">Recipes</span>
+              </a>
+          </h1>         
+      </div>
+</header>
