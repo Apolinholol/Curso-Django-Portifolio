@@ -20,7 +20,7 @@ class Recipe(models.Model):
     description = models.CharField(max_length=165)
 #Slugs são usados ​​principalmente para criar URLs amigáveis e legíveis. Eles normalmente consistem em letras minúsculas, 
 # números e hifens, evitando caracteres especiais e espaços.
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
     preparation_time = models.IntegerField()
     preparation_time_unit = models.CharField(max_length= 30)
     servings= models.IntegerField()

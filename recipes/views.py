@@ -2,6 +2,7 @@ from django.shortcuts import render,get_list_or_404,get_object_or_404
 from utils.recipes.factory import make_recipe
 from .models import Recipe
 from django.http import Http404
+from django.contrib import messages 
 
 
 
@@ -49,6 +50,8 @@ def recipe(request, id):
         'is_detail_page':True,
     })
 
+def search(request):
+   return render(request,'recipes/pages/search.html') 
 
 
 # recipes=Recipe.objects.filter(category__id=category_id,is_published=True).order_by('-id')

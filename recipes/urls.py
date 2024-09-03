@@ -12,5 +12,6 @@ urlpatterns = [
     path('recipes/<int:id>/',views.recipe,name="recipe"),
     # Será linkado ao botão em recipe da categoria da receita
     path('recipes/category/<int:category_id>/',views.category,name="category"),
-   
+    # Para a barra de pesquisa
+    path('recipes/search/',views.search,name="search"),
 ]
