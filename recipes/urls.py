@@ -1,6 +1,6 @@
 # estou importando da pasta from recipes.views import home, usando o 'ponto'
-from . import views
 from django.urls import path
+from recipes import views
 
 app_name='recipes'
 
